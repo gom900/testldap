@@ -220,7 +220,6 @@ server.search(SUFFIX, authorize, function(req, res, next) {
  //   return next();
  // }
 
-
   switch (req.scope) {
   case 'base':
     //if (req.filter.matches(db[dn])) {
@@ -237,13 +236,17 @@ server.search(SUFFIX, authorize, function(req, res, next) {
   case 'one':
     scopeCheck = function(k) {
       if (req.dn.equals(k)){
-      console.log('LDAP server search keyskipchek: %s', k);
+        console.log('LDAP server search keyskipchek: %s', k);
         return true;
-        }
 
-      var parent = ldap.parseDN(k).parent();
-      console.log('LDAP server search keyone: %s', k);
-      return (parent ? parent.equals(req.dn) : false);
+      }else{
+        var parent = ldap.parseDN(k).parent();
+        console.log('LDAP server search keyone_k: %s', k);
+        console.log('LDAP server search keyone_kp: %s', parent);
+        console.log('LDAP server search keyone_ktf: %s', parent.equals(req.dn));
+
+        return (parent ? parent.equals(req.dn) : false);
+      }
     };
     break;
 
